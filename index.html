@@ -1,217 +1,287 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>وكيل التداول الذكي</title>
 
 <style>
 *{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:Arial,sans-serif;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,Tahoma,sans-serif;
 }
 
 body{
-  background:#0b0f14;
-  color:#fff;
-  min-height:100vh;
+    background:#080c11;
+    color:#fff;
+    min-height:100vh;
 }
 
 header{
-  background:#111821;
-  padding:18px;
-  text-align:center;
-  border-bottom:1px solid #26313d;
+    background:#101720;
+    border-bottom:1px solid #27313d;
+    padding:20px;
+    text-align:center;
 }
 
 header h1{
-  font-size:22px;
+    font-size:23px;
 }
 
 header p{
-  color:#8f9baa;
-  margin-top:7px;
-  font-size:13px;
+    color:#8d9aaa;
+    margin-top:7px;
+    font-size:13px;
 }
 
 .container{
-  max-width:900px;
-  margin:auto;
-  padding:18px;
+    width:100%;
+    max-width:950px;
+    margin:auto;
+    padding:18px;
 }
 
 .status{
-  background:#111821;
-  border:1px solid #26313d;
-  border-radius:14px;
-  padding:15px;
-  margin-bottom:18px;
+    background:#101720;
+    border:1px solid #27313d;
+    border-radius:14px;
+    padding:14px;
+    margin-bottom:18px;
+    font-size:14px;
 }
 
-.status span{
-  color:#35d07f;
-  font-weight:bold;
+.status-dot{
+    color:#27d17f;
+    font-weight:bold;
 }
 
 .card{
-  background:#111821;
-  border:1px solid #26313d;
-  border-radius:16px;
-  padding:18px;
-  margin-bottom:18px;
+    background:#101720;
+    border:1px solid #27313d;
+    border-radius:16px;
+    padding:18px;
+    margin-bottom:18px;
 }
 
 .card h2{
-  font-size:18px;
-  margin-bottom:15px;
+    font-size:18px;
+    margin-bottom:16px;
 }
 
-.btc{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
+.btc-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
 }
 
 .coin{
-  display:flex;
-  align-items:center;
-  gap:12px;
+    display:flex;
+    align-items:center;
+    gap:12px;
 }
 
 .coin-icon{
-  width:45px;
-  height:45px;
-  border-radius:50%;
-  background:#f7931a;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:bold;
-  font-size:20px;
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    background:#f7931a;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:23px;
+    font-weight:bold;
 }
 
 .coin-name{
-  font-size:17px;
-  font-weight:bold;
+    font-size:18px;
+    font-weight:bold;
 }
 
 .symbol{
-  color:#8f9baa;
-  font-size:12px;
-  margin-top:4px;
+    color:#8995a4;
+    font-size:12px;
+    margin-top:4px;
+}
+
+.price-box{
+    text-align:left;
 }
 
 .price{
-  text-align:left;
-  font-size:21px;
-  font-weight:bold;
+    font-size:24px;
+    font-weight:bold;
 }
 
 .change{
-  color:#35d07f;
-  font-size:13px;
-  margin-top:5px;
+    margin-top:5px;
+    font-size:14px;
+}
+
+.green{
+    color:#29d17d;
+}
+
+.red{
+    color:#ff6262;
+}
+
+.gray{
+    color:#a7b0bb;
+}
+
+.last-update{
+    margin-top:14px;
+    color:#687584;
+    font-size:11px;
 }
 
 .market-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
 }
 
 .market-box{
-  background:#0b0f14;
-  border-radius:12px;
-  padding:14px;
-  border:1px solid #202a34;
+    background:#090e14;
+    border:1px solid #202b36;
+    border-radius:13px;
+    padding:14px;
 }
 
-.market-box small{
-  color:#8f9baa;
+.market-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 }
 
-.market-box strong{
-  display:block;
-  margin-top:8px;
-  font-size:16px;
+.market-symbol{
+    font-weight:bold;
+}
+
+.market-price{
+    font-size:17px;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.market-change{
+    font-size:12px;
+    margin-top:5px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.stat{
+    background:#090e14;
+    border:1px solid #202b36;
+    border-radius:12px;
+    padding:13px;
+}
+
+.stat span{
+    color:#8793a2;
+    font-size:12px;
+}
+
+.stat strong{
+    display:block;
+    margin-top:7px;
+    font-size:15px;
 }
 
 .signal{
-  text-align:center;
-  padding:20px;
-  border-radius:14px;
-  background:#0b0f14;
-  border:1px solid #26313d;
+    text-align:center;
+    background:#090e14;
+    border:1px solid #27313d;
+    border-radius:15px;
+    padding:20px;
 }
 
-.signal-title{
-  color:#8f9baa;
-  font-size:13px;
+.signal-label{
+    color:#8793a2;
+    font-size:13px;
 }
 
 .signal-value{
-  font-size:30px;
-  font-weight:bold;
-  margin:10px 0;
+    font-size:30px;
+    font-weight:bold;
+    margin:12px 0;
 }
 
-.wait{
-  color:#f0b429;
+.signal-wait{
+    color:#f0b429;
 }
 
-.buy{
-  color:#35d07f;
+.signal-positive{
+    color:#29d17d;
 }
 
-.sell{
-  color:#ff5c5c;
-}
-
-button{
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:12px;
-  background:#246bfd;
-  color:white;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
-  margin-top:15px;
-}
-
-button:active{
-  transform:scale(.98);
+.signal-negative{
+    color:#ff6262;
 }
 
 .analysis{
-  line-height:1.8;
-  color:#c7d0da;
-  font-size:14px;
+    color:#c5ced8;
+    font-size:14px;
+    line-height:1.9;
+}
+
+.refresh{
+    width:100%;
+    border:none;
+    border-radius:12px;
+    padding:14px;
+    background:#246bfd;
+    color:#fff;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.refresh:active{
+    transform:scale(.98);
+}
+
+.loading{
+    color:#f0b429;
+}
+
+.error{
+    color:#ff6262;
 }
 
 .footer{
-  text-align:center;
-  color:#687583;
-  font-size:12px;
-  padding:20px;
+    text-align:center;
+    color:#586573;
+    font-size:11px;
+    padding:15px 0 25px;
 }
 
 @media(max-width:600px){
-  .market-grid{
-    grid-template-columns:1fr 1fr;
-  }
 
-  .btc{
-    align-items:flex-start;
-  }
+    .btc-header{
+        align-items:flex-start;
+    }
 
-  .price{
-    font-size:17px;
-  }
+    .price{
+        font-size:18px;
+    }
+
+    .market-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
 }
 </style>
 </head>
@@ -219,166 +289,757 @@ button:active{
 <body>
 
 <header>
-  <h1>🤖 وكيل التداول الذكي</h1>
-  <p>تحليل سوق العملات الرقمية</p>
+    <h1>🤖 وكيل التداول الذكي</h1>
+    <p>بيانات سوق مباشرة وتحليل BTC/USDT</p>
 </header>
 
 <div class="container">
 
-  <div class="status">
-    حالة الوكيل:
-    <span>● جاهز للتحليل</span>
-  </div>
+    <div class="status">
+        حالة الاتصال:
+        <span class="status-dot" id="connection">
+            ● جاري الاتصال بالسوق...
+        </span>
+    </div>
 
-  <!-- BTC -->
-  <div class="card">
-    <h2>₿ Bitcoin</h2>
 
-    <div class="btc">
+    <!-- BTC -->
 
-      <div class="coin">
-        <div class="coin-icon">₿</div>
+    <div class="card">
 
-        <div>
-          <div class="coin-name">Bitcoin</div>
-          <div class="symbol">BTC / USDT</div>
+        <h2>₿ Bitcoin</h2>
+
+        <div class="btc-header">
+
+            <div class="coin">
+
+                <div class="coin-icon">
+                    ₿
+                </div>
+
+                <div>
+                    <div class="coin-name">
+                        Bitcoin
+                    </div>
+
+                    <div class="symbol">
+                        BTC / USDT
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="price-box">
+
+                <div class="price" id="btcPrice">
+                    ...
+                </div>
+
+                <div class="change" id="btcChange">
+                    ...
+                </div>
+
+            </div>
+
         </div>
-      </div>
 
-      <div class="price">
-        <div id="btcPrice">$112,500</div>
-        <div class="change" id="btcChange">+1.42%</div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- السوق -->
-  <div class="card">
-    <h2>📊 السوق</h2>
-
-    <div class="market-grid">
-
-      <div class="market-box">
-        <small>BTC</small>
-        <strong id="btcMarket">$112,500</strong>
-      </div>
-
-      <div class="market-box">
-        <small>ETH</small>
-        <strong>$4,120</strong>
-      </div>
-
-      <div class="market-box">
-        <small>BNB</small>
-        <strong>$965</strong>
-      </div>
-
-      <div class="market-box">
-        <small>SOL</small>
-        <strong>$214</strong>
-      </div>
-
-      <div class="market-box">
-        <small>XRP</small>
-        <strong>$2.98</strong>
-      </div>
-
-      <div class="market-box">
-        <small>DOGE</small>
-        <strong>$0.27</strong>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- الإشارة -->
-  <div class="card">
-
-    <h2>🧠 إشارة الذكاء الاصطناعي</h2>
-
-    <div class="signal">
-
-      <div class="signal-title">
-        BTC / USDT
-      </div>
-
-      <div class="signal-value wait" id="signal">
-        انتظار
-      </div>
-
-      <div id="signalText">
-        لا توجد صفقة مؤكدة حالياً
-      </div>
+        <div class="last-update" id="lastUpdate">
+            في انتظار البيانات...
+        </div>
 
     </div>
 
-    <button onclick="analyzeMarket()">
-      🔍 تحليل السوق
+
+    <!-- السوق -->
+
+    <div class="card">
+
+        <h2>📊 السوق</h2>
+
+        <div class="market-grid">
+
+            <div class="market-box">
+                <div class="market-top">
+                    <span class="market-symbol">BTC</span>
+                    <span id="btcMiniChange">...</span>
+                </div>
+
+                <div class="market-price" id="btcMiniPrice">
+                    ...
+                </div>
+
+                <div class="market-change">
+                    BTC / USDT
+                </div>
+            </div>
+
+
+            <div class="market-box">
+                <div class="market-top">
+                    <span class="market-symbol">ETH</span>
+                    <span id="ethChange">...</span>
+                </div>
+
+                <div class="market-price" id="ethPrice">
+                    ...
+                </div>
+
+                <div class="market-change">
+                    ETH / USDT
+                </div>
+            </div>
+
+
+            <div class="market-box">
+                <div class="market-top">
+                    <span class="market-symbol">BNB</span>
+                    <span id="bnbChange">...</span>
+                </div>
+
+                <div class="market-price" id="bnbPrice">
+                    ...
+                </div>
+
+                <div class="market-change">
+                    BNB / USDT
+                </div>
+            </div>
+
+
+            <div class="market-box">
+                <div class="market-top">
+                    <span class="market-symbol">SOL</span>
+                    <span id="solChange">...</span>
+                </div>
+
+                <div class="market-price" id="solPrice">
+                    ...
+                </div>
+
+                <div class="market-change">
+                    SOL / USDT
+                </div>
+            </div>
+
+
+            <div class="market-box">
+                <div class="market-top">
+                    <span class="market-symbol">XRP</span>
+                    <span id="xrpChange">...</span>
+                </div>
+
+                <div class="market-price" id="xrpPrice">
+                    ...
+                </div>
+
+                <div class="market-change">
+                    XRP / USDT
+                </div>
+            </div>
+
+
+            <div class="market-box">
+                <div class="market-top">
+                    <span class="market-symbol">DOGE</span>
+                    <span id="dogeChange">...</span>
+                </div>
+
+                <div class="market-price" id="dogePrice">
+                    ...
+                </div>
+
+                <div class="market-change">
+                    DOGE / USDT
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- احصائيات BTC -->
+
+    <div class="card">
+
+        <h2>📈 إحصائيات BTC — 24 ساعة</h2>
+
+        <div class="stats">
+
+            <div class="stat">
+                <span>أعلى سعر</span>
+                <strong id="btcHigh">...</strong>
+            </div>
+
+            <div class="stat">
+                <span>أدنى سعر</span>
+                <strong id="btcLow">...</strong>
+            </div>
+
+            <div class="stat">
+                <span>حجم التداول</span>
+                <strong id="btcVolume">...</strong>
+            </div>
+
+            <div class="stat">
+                <span>التغير 24 ساعة</span>
+                <strong id="btcPercent">...</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- التحليل -->
+
+    <div class="card">
+
+        <h2>🧠 تحليل BTC</h2>
+
+        <div class="signal">
+
+            <div class="signal-label">
+                حالة الاتجاه الحالية
+            </div>
+
+            <div
+                class="signal-value signal-wait"
+                id="signal">
+                انتظار
+            </div>
+
+            <div id="signalText">
+                جاري تحليل بيانات السوق...
+            </div>
+
+        </div>
+
+        <br>
+
+        <div class="analysis" id="analysis">
+            جاري تحميل بيانات BTC وتحليل حركة السعر...
+        </div>
+
+    </div>
+
+
+    <button class="refresh" onclick="loadMarket()">
+        🔄 تحديث السوق الآن
     </button>
 
-  </div>
-
-  <!-- التحليل -->
-  <div class="card">
-
-    <h2>📋 التحليل</h2>
-
-    <div class="analysis" id="analysis">
-      اضغط على زر "تحليل السوق" للحصول على تحليل تجريبي.
+    <div class="footer">
+        البيانات السوقية يتم جلبها مباشرة من Binance.
+        هذا النظام للتحليل والمعلومات وليس ضماناً للربح.
     </div>
 
-  </div>
-
 </div>
 
-<div class="footer">
-  وكيل التداول الذكي © 2026
-</div>
 
 <script>
 
-function analyzeMarket(){
+const API =
+"https://api.binance.com/api/v3";
 
-  const signals = [
-    {
-      signal:"انتظار",
-      className:"wait",
-      text:"السوق غير واضح حالياً",
-      analysis:"الاتجاه الحالي غير كافٍ لتأكيد دخول آمن. الأفضل انتظار إشارة أقوى قبل اتخاذ قرار."
-    },
-    {
-      signal:"شراء",
-      className:"buy",
-      text:"إشارة إيجابية تجريبية",
-      analysis:"ظهرت بعض المؤشرات الإيجابية في النموذج التجريبي، لكن الإشارة ليست توصية مالية ولا تعتمد على بيانات سوق حقيقية."
-    },
-    {
-      signal:"بيع",
-      className:"sell",
-      text:"ضغط بيعي تجريبي",
-      analysis:"النموذج التجريبي يرصد ضغطاً بيعياً، لكن يجب انتظار بيانات حقيقية وتأكيد الاتجاه قبل أي قرار."
+
+const coins = [
+    "BTCUSDT",
+    "ETHUSDT",
+    "BNBUSDT",
+    "SOLUSDT",
+    "XRPUSDT",
+    "DOGEUSDT"
+];
+
+
+function formatPrice(value){
+
+    const number = Number(value);
+
+    if(number >= 1000){
+        return "$" + number.toLocaleString(
+            "en-US",
+            {
+                minimumFractionDigits:2,
+                maximumFractionDigits:2
+            }
+        );
     }
-  ];
 
-  const result =
-    signals[Math.floor(Math.random()*signals.length)];
+    if(number >= 1){
+        return "$" + number.toLocaleString(
+            "en-US",
+            {
+                minimumFractionDigits:2,
+                maximumFractionDigits:4
+            }
+        );
+    }
 
-  const signal =
-    document.getElementById("signal");
-
-  signal.innerText =
-    result.signal;
-
-  signal.className =
-    "signal-value " + result.className;
-
-  document.getElementById("signalText")
-    .innerText = result.text;
-
-  document.getElementById("analysis")
-    .innerText = result.analysis;
+    return "$" + number.toLocaleString(
+        "en-US",
+        {
+            minimumFractionDigits:4,
+            maximumFractionDigits:6
+        }
+    );
 }
+
+
+function formatPercent(value){
+
+    const n = Number(value);
+
+    if(n > 0){
+        return "+" + n.toFixed(2) + "%";
+    }
+
+    return n.toFixed(2) + "%";
+}
+
+
+function setChange(element,value){
+
+    const n = Number(value);
+
+    element.innerText =
+        formatPercent(n);
+
+    element.className =
+        n > 0
+        ? "market-change green"
+        : n < 0
+        ? "market-change red"
+        : "market-change gray";
+}
+
+
+async function get24h(symbol){
+
+    const response =
+        await fetch(
+            API +
+            "/ticker/24hr?symbol=" +
+            symbol
+        );
+
+    if(!response.ok){
+        throw new Error(
+            "HTTP " + response.status
+        );
+    }
+
+    return await response.json();
+}
+
+
+async function loadMarket(){
+
+    const connection =
+        document.getElementById(
+            "connection"
+        );
+
+    connection.innerText =
+        "● جاري تحديث السوق...";
+
+    connection.style.color =
+        "#f0b429";
+
+
+    try{
+
+        const results =
+            await Promise.all(
+                coins.map(
+                    symbol =>
+                    get24h(symbol)
+                )
+            );
+
+
+        const data = {};
+
+        results.forEach(item => {
+            data[item.symbol] = item;
+        });
+
+
+        /* BTC */
+
+        const btc =
+            data["BTCUSDT"];
+
+
+        document.getElementById(
+            "btcPrice"
+        ).innerText =
+            formatPrice(btc.lastPrice);
+
+
+        document.getElementById(
+            "btcChange"
+        ).innerText =
+            formatPercent(
+                btc.priceChangePercent
+            );
+
+
+        document.getElementById(
+            "btcChange"
+        ).className =
+            Number(btc.priceChangePercent) >= 0
+            ? "change green"
+            : "change red";
+
+
+        document.getElementById(
+            "btcMiniPrice"
+        ).innerText =
+            formatPrice(btc.lastPrice);
+
+
+        setChange(
+            document.getElementById(
+                "btcMiniChange"
+            ),
+            btc.priceChangePercent
+        );
+
+
+        document.getElementById(
+            "btcHigh"
+        ).innerText =
+            formatPrice(btc.highPrice);
+
+
+        document.getElementById(
+            "btcLow"
+        ).innerText =
+            formatPrice(btc.lowPrice);
+
+
+        document.getElementById(
+            "btcVolume"
+        ).innerText =
+            Number(
+                btc.volume
+            ).toLocaleString(
+                "en-US",
+                {
+                    maximumFractionDigits:2
+                }
+            );
+
+
+        document.getElementById(
+            "btcPercent"
+        ).innerText =
+            formatPercent(
+                btc.priceChangePercent
+            );
+
+
+        /* ETH */
+
+        document.getElementById(
+            "ethPrice"
+        ).innerText =
+            formatPrice(
+                data["ETHUSDT"].lastPrice
+            );
+
+        setChange(
+            document.getElementById(
+                "ethChange"
+            ),
+            data["ETHUSDT"].priceChangePercent
+        );
+
+
+        /* BNB */
+
+        document.getElementById(
+            "bnbPrice"
+        ).innerText =
+            formatPrice(
+                data["BNBUSDT"].lastPrice
+            );
+
+        setChange(
+            document.getElementById(
+                "bnbChange"
+            ),
+            data["BNBUSDT"].priceChangePercent
+        );
+
+
+        /* SOL */
+
+        document.getElementById(
+            "solPrice"
+        ).innerText =
+            formatPrice(
+                data["SOLUSDT"].lastPrice
+            );
+
+        setChange(
+            document.getElementById(
+                "solChange"
+            ),
+            data["SOLUSDT"].priceChangePercent
+        );
+
+
+        /* XRP */
+
+        document.getElementById(
+            "xrpPrice"
+        ).innerText =
+            formatPrice(
+                data["XRPUSDT"].lastPrice
+            );
+
+        setChange(
+            document.getElementById(
+                "xrpChange"
+            ),
+            data["XRPUSDT"].priceChangePercent
+        );
+
+
+        /* DOGE */
+
+        document.getElementById(
+            "dogePrice"
+        ).innerText =
+            formatPrice(
+                data["DOGEUSDT"].lastPrice
+            );
+
+        setChange(
+            document.getElementById(
+                "dogeChange"
+            ),
+            data["DOGEUSDT"].priceChangePercent
+        );
+
+
+        /* الوقت */
+
+        const now =
+            new Date();
+
+        document.getElementById(
+            "lastUpdate"
+        ).innerText =
+            "آخر تحديث: " +
+            now.toLocaleTimeString(
+                "ar-DZ"
+            );
+
+
+        connection.innerText =
+            "● متصل بالسوق";
+
+        connection.style.color =
+            "#29d17d";
+
+
+        analyzeBTC(btc);
+
+
+    }catch(error){
+
+        console.error(error);
+
+        connection.innerText =
+            "● تعذر الاتصال بالسوق";
+
+        connection.style.color =
+            "#ff6262";
+
+
+        document.getElementById(
+            "analysis"
+        ).innerText =
+            "تعذر جلب بيانات السوق. تحقق من اتصال الإنترنت ثم أعد المحاولة.";
+
+
+        document.getElementById(
+            "signal"
+        ).innerText =
+            "غير متاح";
+
+        document.getElementById(
+            "signal"
+        ).className =
+            "signal-value signal-wait";
+    }
+}
+
+
+function analyzeBTC(btc){
+
+    const change =
+        Number(
+            btc.priceChangePercent
+        );
+
+    const high =
+        Number(
+            btc.highPrice
+        );
+
+    const low =
+        Number(
+            btc.lowPrice
+        );
+
+    const last =
+        Number(
+            btc.lastPrice
+        );
+
+
+    let signal =
+        document.getElementById(
+            "signal"
+        );
+
+    let text =
+        document.getElementById(
+            "signalText"
+        );
+
+    let analysis =
+        document.getElementById(
+            "analysis"
+        );
+
+
+    /*
+      هذا تحليل وصفي بسيط
+      وليس نموذج ذكاء اصطناعي حقيقياً.
+    */
+
+    if(change >= 3){
+
+        signal.innerText =
+            "اتجاه صاعد قوي";
+
+        signal.className =
+            "signal-value signal-positive";
+
+        text.innerText =
+            "ارتفاع واضح خلال آخر 24 ساعة";
+
+        analysis.innerText =
+            "BTC يتحرك حالياً بإيجابية مقارنة بسعر بداية فترة الـ24 ساعة. " +
+            "التغير المسجل هو " +
+            formatPercent(change) +
+            ". هذا لا يعني أن السعر سيواصل الصعود، لذلك يجب انتظار تأكيد من بيانات زمنية أقصر قبل اتخاذ أي قرار.";
+
+    }else if(change > 0){
+
+        signal.innerText =
+            "ميل صاعد";
+
+        signal.className =
+            "signal-value signal-positive";
+
+        text.innerText =
+            "السعر أعلى من بداية فترة 24 ساعة";
+
+        analysis.innerText =
+            "BTC يسجل تغيراً إيجابياً قدره " +
+            formatPercent(change) +
+            " خلال 24 ساعة. الحركة إيجابية حالياً، لكنها ليست كافية وحدها لاعتبارها إشارة دخول.";
+
+    }else if(change <= -3){
+
+        signal.innerText =
+            "ضغط هابط";
+
+        signal.className =
+            "signal-value signal-negative";
+
+        text.innerText =
+            "انخفاض واضح خلال آخر 24 ساعة";
+
+        analysis.innerText =
+            "BTC يسجل ضغطاً هابطاً خلال فترة 24 ساعة، مع تغير قدره " +
+            formatPercent(change) +
+            ". يجب مراقبة استمرار الانخفاض أو ظهور انعكاس قبل اتخاذ أي قرار.";
+
+    }else if(change < 0){
+
+        signal.innerText =
+            "ميل هابط";
+
+        signal.className =
+            "signal-value signal-negative";
+
+        text.innerText =
+            "السعر أقل من بداية فترة 24 ساعة";
+
+        analysis.innerText =
+            "BTC يسجل تغيراً سلبياً قدره " +
+            formatPercent(change) +
+            " خلال 24 ساعة. الاتجاه قصير الأجل يميل للسلبية، لكن البيانات الحالية وحدها لا تؤكد استمرار الهبوط.";
+
+    }else{
+
+        signal.innerText =
+            "انتظار";
+
+        signal.className =
+            "signal-value signal-wait";
+
+        text.innerText =
+            "السوق شبه ثابت";
+
+        analysis.innerText =
+            "BTC لا يسجل تغيراً واضحاً خلال فترة 24 ساعة. الأفضل انتظار حركة أوضح قبل اعتبار الاتجاه مؤكداً.";
+    }
+
+
+    /*
+      عرض موقع السعر داخل نطاق 24 ساعة
+    */
+
+    const range =
+        high - low;
+
+    if(range > 0){
+
+        const position =
+            ((last - low) / range) * 100;
+
+        analysis.innerText +=
+            " السعر الحالي يقع تقريباً عند " +
+            position.toFixed(1) +
+            "% من نطاق أعلى/أدنى سعر خلال 24 ساعة.";
+    }
+}
+
+
+/*
+  تشغيل أول مرة
+*/
+
+loadMarket();
+
+
+/*
+  تحديث تلقائي كل 15 ثانية
+*/
+
+setInterval(
+    loadMarket,
+    15000
+);
 
 </script>
 

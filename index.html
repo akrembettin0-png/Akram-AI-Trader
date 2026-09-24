@@ -7,76 +7,117 @@
 
 <style>
 *{box-sizing:border-box}
+
 body{
   margin:0;
   font-family:Arial,sans-serif;
-  background:#0b1020;
-  color:white;
+  background:#080d19;
+  color:#fff;
 }
+
 .container{
-  max-width:900px;
+  max-width:950px;
   margin:auto;
-  padding:20px;
+  padding:18px;
 }
+
 header{
   text-align:center;
   padding:25px 10px;
 }
+
 h1{
   margin:0;
-  font-size:32px;
+  font-size:30px;
 }
+
 .subtitle{
-  color:#9ca8c7;
+  color:#9aa6c2;
   margin-top:8px;
 }
+
 .card{
-  background:#151c31;
-  border:1px solid #273252;
+  background:#121a2b;
+  border:1px solid #263452;
   border-radius:16px;
-  padding:20px;
+  padding:18px;
   margin-bottom:16px;
 }
+
 .status{
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:9px;
 }
+
 .dot{
-  width:12px;
-  height:12px;
+  width:11px;
+  height:11px;
   border-radius:50%;
   background:#20d879;
 }
+
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
   gap:12px;
 }
+
 .coin{
-  background:#10172a;
+  background:#0d1424;
   border-radius:12px;
   padding:15px;
 }
+
 .coin b{
   display:block;
-  font-size:18px;
   margin-bottom:8px;
+  font-size:17px;
 }
+
 .price{
-  font-size:20px;
+  font-size:21px;
+  font-weight:bold;
 }
+
+.change{
+  margin-top:7px;
+  font-size:14px;
+}
+
 .green{color:#20d879}
 .red{color:#ff5c6c}
+.gray{color:#9aa6c2}
+
 .signal{
   text-align:center;
-  padding:18px;
-  border-radius:12px;
-  background:#10172a;
+  background:#0d1424;
+  border-radius:14px;
+  padding:22px;
 }
+
 .signal strong{
-  font-size:26px;
+  font-size:28px;
 }
+
+.analysis{
+  color:#b5bfd5;
+  line-height:1.7;
+}
+
+.info{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-top:15px;
+}
+
+.info div{
+  background:#151f34;
+  padding:13px;
+  border-radius:10px;
+}
+
 button{
   width:100%;
   padding:15px;
@@ -87,10 +128,22 @@ button{
   font-size:17px;
   font-weight:bold;
 }
+
+button:active{
+  transform:scale(.98);
+}
+
+.small{
+  color:#71809f;
+  font-size:13px;
+  text-align:center;
+  margin-top:12px;
+}
+
 footer{
   text-align:center;
-  color:#697594;
-  padding:20px;
+  color:#66738f;
+  padding:18px;
   font-size:13px;
 }
 </style>
@@ -102,21 +155,17 @@ footer{
 
 <header>
   <h1>🤖 Akram AI Trader</h1>
-  <div class="subtitle">وكيل ذكاء اصطناعي لتحليل العملات الرقمية</div>
+  <div class="subtitle">
+    وكيل ذكاء اصطناعي لتحليل سوق العملات الرقمية
+  </div>
 </header>
 
 <div class="card">
   <div class="status">
     <span class="dot"></span>
-    <b>النظام يعمل</b>
+    <b>النظام متصل</b>
   </div>
-  <p>المراقبة والتحليل الآلي للعملات الرقمية</p>
-</div>
 
-<div class="card">
-  <h2>📊 السوق</h2>
-
-  <div class="grid">
-
-    <div class="coin">
-      <b>Bitcoin
+  <p class="gray">
+    تحليل تجريبي للسوق اعتماداً على بيانات الأسعار العامة.
+  </

@@ -1,171 +1,386 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Akram AI Trader</title>
+<title>وكيل التداول الذكي</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+}
 
 body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#080d19;
+  background:#0b0f14;
   color:#fff;
+  min-height:100vh;
+}
+
+header{
+  background:#111821;
+  padding:18px;
+  text-align:center;
+  border-bottom:1px solid #26313d;
+}
+
+header h1{
+  font-size:22px;
+}
+
+header p{
+  color:#8f9baa;
+  margin-top:7px;
+  font-size:13px;
 }
 
 .container{
-  max-width:950px;
+  max-width:900px;
   margin:auto;
   padding:18px;
 }
 
-header{
-  text-align:center;
-  padding:25px 10px;
+.status{
+  background:#111821;
+  border:1px solid #26313d;
+  border-radius:14px;
+  padding:15px;
+  margin-bottom:18px;
 }
 
-h1{
-  margin:0;
-  font-size:30px;
-}
-
-.subtitle{
-  color:#9aa6c2;
-  margin-top:8px;
+.status span{
+  color:#35d07f;
+  font-weight:bold;
 }
 
 .card{
-  background:#121a2b;
-  border:1px solid #263452;
+  background:#111821;
+  border:1px solid #26313d;
   border-radius:16px;
   padding:18px;
-  margin-bottom:16px;
+  margin-bottom:18px;
 }
 
-.status{
+.card h2{
+  font-size:18px;
+  margin-bottom:15px;
+}
+
+.btc{
   display:flex;
+  justify-content:space-between;
   align-items:center;
-  gap:9px;
-}
-
-.dot{
-  width:11px;
-  height:11px;
-  border-radius:50%;
-  background:#20d879;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:12px;
+  gap:15px;
 }
 
 .coin{
-  background:#0d1424;
-  border-radius:12px;
-  padding:15px;
+  display:flex;
+  align-items:center;
+  gap:12px;
 }
 
-.coin b{
-  display:block;
-  margin-bottom:8px;
+.coin-icon{
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  background:#f7931a;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+  font-size:20px;
+}
+
+.coin-name{
   font-size:17px;
+  font-weight:bold;
+}
+
+.symbol{
+  color:#8f9baa;
+  font-size:12px;
+  margin-top:4px;
 }
 
 .price{
+  text-align:left;
   font-size:21px;
   font-weight:bold;
 }
 
 .change{
-  margin-top:7px;
-  font-size:14px;
+  color:#35d07f;
+  font-size:13px;
+  margin-top:5px;
 }
 
-.green{color:#20d879}
-.red{color:#ff5c6c}
-.gray{color:#9aa6c2}
+.market-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.market-box{
+  background:#0b0f14;
+  border-radius:12px;
+  padding:14px;
+  border:1px solid #202a34;
+}
+
+.market-box small{
+  color:#8f9baa;
+}
+
+.market-box strong{
+  display:block;
+  margin-top:8px;
+  font-size:16px;
+}
 
 .signal{
   text-align:center;
-  background:#0d1424;
+  padding:20px;
   border-radius:14px;
-  padding:22px;
+  background:#0b0f14;
+  border:1px solid #26313d;
 }
 
-.signal strong{
-  font-size:28px;
+.signal-title{
+  color:#8f9baa;
+  font-size:13px;
 }
 
-.analysis{
-  color:#b5bfd5;
-  line-height:1.7;
+.signal-value{
+  font-size:30px;
+  font-weight:bold;
+  margin:10px 0;
 }
 
-.info{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-  margin-top:15px;
+.wait{
+  color:#f0b429;
 }
 
-.info div{
-  background:#151f34;
-  padding:13px;
-  border-radius:10px;
+.buy{
+  color:#35d07f;
+}
+
+.sell{
+  color:#ff5c5c;
 }
 
 button{
   width:100%;
-  padding:15px;
-  border:0;
+  padding:14px;
+  border:none;
   border-radius:12px;
-  background:#2563eb;
+  background:#246bfd;
   color:white;
-  font-size:17px;
+  font-size:16px;
   font-weight:bold;
+  cursor:pointer;
+  margin-top:15px;
 }
 
 button:active{
   transform:scale(.98);
 }
 
-.small{
-  color:#71809f;
-  font-size:13px;
-  text-align:center;
-  margin-top:12px;
+.analysis{
+  line-height:1.8;
+  color:#c7d0da;
+  font-size:14px;
 }
 
-footer{
+.footer{
   text-align:center;
-  color:#66738f;
-  padding:18px;
-  font-size:13px;
+  color:#687583;
+  font-size:12px;
+  padding:20px;
+}
+
+@media(max-width:600px){
+  .market-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .btc{
+    align-items:flex-start;
+  }
+
+  .price{
+    font-size:17px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-
 <header>
-  <h1>🤖 Akram AI Trader</h1>
-  <div class="subtitle">
-    وكيل ذكاء اصطناعي لتحليل سوق العملات الرقمية
-  </div>
+  <h1>🤖 وكيل التداول الذكي</h1>
+  <p>تحليل سوق العملات الرقمية</p>
 </header>
 
-<div class="card">
+<div class="container">
+
   <div class="status">
-    <span class="dot"></span>
-    <b>النظام متصل</b>
+    حالة الوكيل:
+    <span>● جاهز للتحليل</span>
   </div>
 
-  <p class="gray">
-    تحليل تجريبي للسوق اعتماداً على بيانات الأسعار العامة.
-  </
+  <!-- BTC -->
+  <div class="card">
+    <h2>₿ Bitcoin</h2>
+
+    <div class="btc">
+
+      <div class="coin">
+        <div class="coin-icon">₿</div>
+
+        <div>
+          <div class="coin-name">Bitcoin</div>
+          <div class="symbol">BTC / USDT</div>
+        </div>
+      </div>
+
+      <div class="price">
+        <div id="btcPrice">$112,500</div>
+        <div class="change" id="btcChange">+1.42%</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- السوق -->
+  <div class="card">
+    <h2>📊 السوق</h2>
+
+    <div class="market-grid">
+
+      <div class="market-box">
+        <small>BTC</small>
+        <strong id="btcMarket">$112,500</strong>
+      </div>
+
+      <div class="market-box">
+        <small>ETH</small>
+        <strong>$4,120</strong>
+      </div>
+
+      <div class="market-box">
+        <small>BNB</small>
+        <strong>$965</strong>
+      </div>
+
+      <div class="market-box">
+        <small>SOL</small>
+        <strong>$214</strong>
+      </div>
+
+      <div class="market-box">
+        <small>XRP</small>
+        <strong>$2.98</strong>
+      </div>
+
+      <div class="market-box">
+        <small>DOGE</small>
+        <strong>$0.27</strong>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- الإشارة -->
+  <div class="card">
+
+    <h2>🧠 إشارة الذكاء الاصطناعي</h2>
+
+    <div class="signal">
+
+      <div class="signal-title">
+        BTC / USDT
+      </div>
+
+      <div class="signal-value wait" id="signal">
+        انتظار
+      </div>
+
+      <div id="signalText">
+        لا توجد صفقة مؤكدة حالياً
+      </div>
+
+    </div>
+
+    <button onclick="analyzeMarket()">
+      🔍 تحليل السوق
+    </button>
+
+  </div>
+
+  <!-- التحليل -->
+  <div class="card">
+
+    <h2>📋 التحليل</h2>
+
+    <div class="analysis" id="analysis">
+      اضغط على زر "تحليل السوق" للحصول على تحليل تجريبي.
+    </div>
+
+  </div>
+
+</div>
+
+<div class="footer">
+  وكيل التداول الذكي © 2026
+</div>
+
+<script>
+
+function analyzeMarket(){
+
+  const signals = [
+    {
+      signal:"انتظار",
+      className:"wait",
+      text:"السوق غير واضح حالياً",
+      analysis:"الاتجاه الحالي غير كافٍ لتأكيد دخول آمن. الأفضل انتظار إشارة أقوى قبل اتخاذ قرار."
+    },
+    {
+      signal:"شراء",
+      className:"buy",
+      text:"إشارة إيجابية تجريبية",
+      analysis:"ظهرت بعض المؤشرات الإيجابية في النموذج التجريبي، لكن الإشارة ليست توصية مالية ولا تعتمد على بيانات سوق حقيقية."
+    },
+    {
+      signal:"بيع",
+      className:"sell",
+      text:"ضغط بيعي تجريبي",
+      analysis:"النموذج التجريبي يرصد ضغطاً بيعياً، لكن يجب انتظار بيانات حقيقية وتأكيد الاتجاه قبل أي قرار."
+    }
+  ];
+
+  const result =
+    signals[Math.floor(Math.random()*signals.length)];
+
+  const signal =
+    document.getElementById("signal");
+
+  signal.innerText =
+    result.signal;
+
+  signal.className =
+    "signal-value " + result.className;
+
+  document.getElementById("signalText")
+    .innerText = result.text;
+
+  document.getElementById("analysis")
+    .innerText = result.analysis;
+}
+
+</script>
+
+</body>
+</html>

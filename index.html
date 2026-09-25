@@ -2,286 +2,181 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Akram AI Trader</title>
 
-<title>وكيل التداول الذكي</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
-*{
-    box-sizing:border-box;
+*{box-sizing:border-box}
+body{
     margin:0;
-    padding:0;
+    background:#070b12;
+    color:#e9eef7;
     font-family:Arial,Tahoma,sans-serif;
 }
-
-body{
-    background:#080c11;
-    color:#fff;
-    min-height:100vh;
-}
-
 header{
-    background:#101720;
-    border-bottom:1px solid #27313d;
-    padding:20px;
+    background:linear-gradient(135deg,#0d1422,#111d31);
+    padding:18px;
     text-align:center;
+    border-bottom:1px solid #26344a;
+    position:sticky;
+    top:0;
+    z-index:10;
 }
-
-header h1{
-    font-size:23px;
-}
-
-header p{
-    color:#8d9aaa;
-    margin-top:7px;
-    font-size:13px;
-}
+header h1{margin:0;color:#55b7ff;font-size:25px}
+header p{margin:6px 0 0;color:#8d9bb0;font-size:13px}
 
 .container{
-    width:100%;
-    max-width:950px;
+    width:min(1250px,95%);
     margin:auto;
-    padding:18px;
+    padding:15px 0 40px;
 }
 
-.status{
-    background:#101720;
-    border:1px solid #27313d;
-    border-radius:14px;
-    padding:14px;
-    margin-bottom:18px;
-    font-size:14px;
-}
-
-.status-dot{
-    color:#27d17f;
-    font-weight:bold;
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:14px;
 }
 
 .card{
-    background:#101720;
-    border:1px solid #27313d;
-    border-radius:16px;
-    padding:18px;
-    margin-bottom:18px;
+    background:#0e1521;
+    border:1px solid #1e2b3e;
+    border-radius:15px;
+    padding:15px;
+    box-shadow:0 8px 25px #0005;
 }
 
 .card h2{
+    margin:0 0 12px;
     font-size:18px;
-    margin-bottom:16px;
+    color:#61bdff;
 }
 
-.btc-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:15px;
+label{
+    display:block;
+    color:#9aa8bb;
+    font-size:13px;
+    margin-bottom:6px;
 }
 
-.coin{
-    display:flex;
-    align-items:center;
-    gap:12px;
+input,select,button,textarea{
+    width:100%;
+    border-radius:10px;
+    border:1px solid #2a3a51;
+    background:#080d15;
+    color:#fff;
+    padding:11px;
+    margin-bottom:9px;
+    outline:none;
 }
 
-.coin-icon{
-    width:48px;
-    height:48px;
-    border-radius:50%;
-    background:#f7931a;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:23px;
+button{
+    background:#1268a8;
+    border:0;
+    cursor:pointer;
     font-weight:bold;
 }
+button:hover{background:#1883d0}
 
-.coin-name{
-    font-size:18px;
-    font-weight:bold;
-}
-
-.symbol{
-    color:#8995a4;
-    font-size:12px;
-    margin-top:4px;
-}
-
-.price-box{
-    text-align:left;
-}
+button.secondary{background:#263449}
+button.green{background:#13794b}
+button.red{background:#8e2737}
 
 .price{
-    font-size:24px;
+    font-size:28px;
     font-weight:bold;
+    color:#fff;
 }
 
 .change{
-    margin-top:5px;
-    font-size:14px;
-}
-
-.green{
-    color:#29d17d;
-}
-
-.red{
-    color:#ff6262;
-}
-
-.gray{
-    color:#a7b0bb;
-}
-
-.last-update{
-    margin-top:14px;
-    color:#687584;
-    font-size:11px;
-}
-
-.market-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:12px;
-}
-
-.market-box{
-    background:#090e14;
-    border:1px solid #202b36;
-    border-radius:13px;
-    padding:14px;
-}
-
-.market-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.market-symbol{
-    font-weight:bold;
-}
-
-.market-price{
-    font-size:17px;
-    font-weight:bold;
-    margin-top:10px;
-}
-
-.market-change{
-    font-size:12px;
-    margin-top:5px;
-}
-
-.stats{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:12px;
-}
-
-.stat{
-    background:#090e14;
-    border:1px solid #202b36;
-    border-radius:12px;
-    padding:13px;
-}
-
-.stat span{
-    color:#8793a2;
-    font-size:12px;
-}
-
-.stat strong{
-    display:block;
-    margin-top:7px;
     font-size:15px;
+    margin-top:5px;
 }
+
+.up{color:#27d98b}
+.down{color:#ff6577}
+.neutral{color:#f2c94c}
 
 .signal{
     text-align:center;
-    background:#090e14;
-    border:1px solid #27313d;
-    border-radius:15px;
-    padding:20px;
+    font-size:30px;
+    font-weight:bold;
+    padding:15px;
+    border-radius:12px;
+    margin:10px 0;
 }
 
-.signal-label{
-    color:#8793a2;
+.buy{background:#0c5135;color:#48f1ad}
+.sell{background:#641e2b;color:#ff778a}
+.wait{background:#5a4914;color:#ffe17b}
+
+.metric{
+    display:flex;
+    justify-content:space-between;
+    padding:8px 0;
+    border-bottom:1px solid #1b2737;
+}
+
+.metric:last-child{border:0}
+
+.small{
+    font-size:12px;
+    color:#8290a4;
+}
+
+.news{
+    border-bottom:1px solid #243145;
+    padding:10px 0;
+}
+
+.news:last-child{border:0}
+
+.source{
+    color:#6bbcff;
+    font-size:12px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
     font-size:13px;
 }
 
-.signal-value{
-    font-size:30px;
-    font-weight:bold;
-    margin:12px 0;
+th,td{
+    padding:9px 6px;
+    border-bottom:1px solid #202d40;
+    text-align:right;
 }
 
-.signal-wait{
-    color:#f0b429;
+th{color:#70c3ff}
+
+.scroller{
+    max-height:420px;
+    overflow:auto;
 }
 
-.signal-positive{
-    color:#29d17d;
-}
-
-.signal-negative{
-    color:#ff6262;
-}
-
-.analysis{
-    color:#c5ced8;
-    font-size:14px;
-    line-height:1.9;
-}
-
-.refresh{
-    width:100%;
-    border:none;
-    border-radius:12px;
-    padding:14px;
-    background:#246bfd;
-    color:#fff;
-    font-size:16px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.refresh:active{
-    transform:scale(.98);
+.status{
+    padding:10px;
+    border-radius:10px;
+    background:#111b29;
+    color:#aab8cb;
+    margin-top:8px;
 }
 
 .loading{
-    color:#f0b429;
+    opacity:.6;
+    pointer-events:none;
 }
 
-.error{
-    color:#ff6262;
-}
-
-.footer{
-    text-align:center;
-    color:#586573;
-    font-size:11px;
-    padding:15px 0 25px;
+canvas{
+    max-height:330px;
 }
 
 @media(max-width:600px){
-
-    .btc-header{
-        align-items:flex-start;
-    }
-
-    .price{
-        font-size:18px;
-    }
-
-    .market-grid{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .stats{
-        grid-template-columns:1fr 1fr;
-    }
+    header h1{font-size:21px}
+    .price{font-size:23px}
+    .signal{font-size:25px}
 }
 </style>
 </head>
@@ -289,757 +184,1291 @@ header p{
 <body>
 
 <header>
-    <h1>🤖 وكيل التداول الذكي</h1>
-    <p>بيانات سوق مباشرة وتحليل BTC/USDT</p>
+    <h1>🤖 Akram AI Trader</h1>
+    <p>محلل سوق ذكي للعملات الرقمية والذهب — وضع المحاكاة</p>
 </header>
 
 <div class="container">
 
-    <div class="status">
-        حالة الاتصال:
-        <span class="status-dot" id="connection">
-            ● جاري الاتصال بالسوق...
-        </span>
+<!-- API -->
+<div class="card">
+    <h2>⚙️ إعداد الذكاء الاصطناعي</h2>
+
+    <label>Gemini API Key</label>
+    <input id="apiKey" type="password" placeholder="ضع مفتاح Gemini هنا">
+
+    <button onclick="saveKey()">💾 حفظ المفتاح على هذا الجهاز</button>
+
+    <div class="small">
+        المفتاح يُحفظ محليًا في المتصفح فقط. لا تستخدم مفتاح تداول Binance هنا.
     </div>
 
+    <div id="apiStatus" class="status">لم يتم تشغيل تحليل الذكاء الاصطناعي بعد.</div>
+</div>
 
-    <!-- BTC -->
+<br>
 
-    <div class="card">
+<!-- MARKET SELECTOR -->
+<div class="card">
+    <h2>📊 السوق</h2>
 
-        <h2>₿ Bitcoin</h2>
+    <label>اختر العملة</label>
+    <select id="symbolSelect" onchange="selectSymbol()">
+        <option value="BTCUSDT">BTC / USDT</option>
+    </select>
 
-        <div class="btc-header">
+    <button onclick="loadMarket()">🔄 تحديث السوق</button>
+    <button class="green" onclick="runAIAnalysis()">🧠 تحليل AI + الأخبار</button>
+</div>
 
-            <div class="coin">
+<br>
 
-                <div class="coin-icon">
-                    ₿
-                </div>
+<div class="grid">
 
-                <div>
-                    <div class="coin-name">
-                        Bitcoin
-                    </div>
+<!-- PRICE -->
+<div class="card">
+    <h2>💰 السعر الحالي</h2>
 
-                    <div class="symbol">
-                        BTC / USDT
-                    </div>
-                </div>
+    <div id="price" class="price">--</div>
+    <div id="change" class="change">--</div>
 
-            </div>
-
-
-            <div class="price-box">
-
-                <div class="price" id="btcPrice">
-                    ...
-                </div>
-
-                <div class="change" id="btcChange">
-                    ...
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="last-update" id="lastUpdate">
-            في انتظار البيانات...
-        </div>
-
+    <div class="metric">
+        <span>24H High</span>
+        <b id="high">--</b>
     </div>
 
-
-    <!-- السوق -->
-
-    <div class="card">
-
-        <h2>📊 السوق</h2>
-
-        <div class="market-grid">
-
-            <div class="market-box">
-                <div class="market-top">
-                    <span class="market-symbol">BTC</span>
-                    <span id="btcMiniChange">...</span>
-                </div>
-
-                <div class="market-price" id="btcMiniPrice">
-                    ...
-                </div>
-
-                <div class="market-change">
-                    BTC / USDT
-                </div>
-            </div>
-
-
-            <div class="market-box">
-                <div class="market-top">
-                    <span class="market-symbol">ETH</span>
-                    <span id="ethChange">...</span>
-                </div>
-
-                <div class="market-price" id="ethPrice">
-                    ...
-                </div>
-
-                <div class="market-change">
-                    ETH / USDT
-                </div>
-            </div>
-
-
-            <div class="market-box">
-                <div class="market-top">
-                    <span class="market-symbol">BNB</span>
-                    <span id="bnbChange">...</span>
-                </div>
-
-                <div class="market-price" id="bnbPrice">
-                    ...
-                </div>
-
-                <div class="market-change">
-                    BNB / USDT
-                </div>
-            </div>
-
-
-            <div class="market-box">
-                <div class="market-top">
-                    <span class="market-symbol">SOL</span>
-                    <span id="solChange">...</span>
-                </div>
-
-                <div class="market-price" id="solPrice">
-                    ...
-                </div>
-
-                <div class="market-change">
-                    SOL / USDT
-                </div>
-            </div>
-
-
-            <div class="market-box">
-                <div class="market-top">
-                    <span class="market-symbol">XRP</span>
-                    <span id="xrpChange">...</span>
-                </div>
-
-                <div class="market-price" id="xrpPrice">
-                    ...
-                </div>
-
-                <div class="market-change">
-                    XRP / USDT
-                </div>
-            </div>
-
-
-            <div class="market-box">
-                <div class="market-top">
-                    <span class="market-symbol">DOGE</span>
-                    <span id="dogeChange">...</span>
-                </div>
-
-                <div class="market-price" id="dogePrice">
-                    ...
-                </div>
-
-                <div class="market-change">
-                    DOGE / USDT
-                </div>
-            </div>
-
-        </div>
-
+    <div class="metric">
+        <span>24H Low</span>
+        <b id="low">--</b>
     </div>
 
+    <div class="metric">
+        <span>Volume</span>
+        <b id="volume">--</b>
+    </div>
+</div>
 
-    <!-- احصائيات BTC -->
+<!-- SIGNAL -->
+<div class="card">
+    <h2>🎯 الإشارة</h2>
 
-    <div class="card">
+    <div id="signal" class="signal wait">WAIT</div>
 
-        <h2>📈 إحصائيات BTC — 24 ساعة</h2>
-
-        <div class="stats">
-
-            <div class="stat">
-                <span>أعلى سعر</span>
-                <strong id="btcHigh">...</strong>
-            </div>
-
-            <div class="stat">
-                <span>أدنى سعر</span>
-                <strong id="btcLow">...</strong>
-            </div>
-
-            <div class="stat">
-                <span>حجم التداول</span>
-                <strong id="btcVolume">...</strong>
-            </div>
-
-            <div class="stat">
-                <span>التغير 24 ساعة</span>
-                <strong id="btcPercent">...</strong>
-            </div>
-
-        </div>
-
+    <div class="metric">
+        <span>Entry</span>
+        <b id="entry">--</b>
     </div>
 
-
-    <!-- التحليل -->
-
-    <div class="card">
-
-        <h2>🧠 تحليل BTC</h2>
-
-        <div class="signal">
-
-            <div class="signal-label">
-                حالة الاتجاه الحالية
-            </div>
-
-            <div
-                class="signal-value signal-wait"
-                id="signal">
-                انتظار
-            </div>
-
-            <div id="signalText">
-                جاري تحليل بيانات السوق...
-            </div>
-
-        </div>
-
-        <br>
-
-        <div class="analysis" id="analysis">
-            جاري تحميل بيانات BTC وتحليل حركة السعر...
-        </div>
-
+    <div class="metric">
+        <span>Stop Loss</span>
+        <b id="sl">--</b>
     </div>
 
-
-    <button class="refresh" onclick="loadMarket()">
-        🔄 تحديث السوق الآن
-    </button>
-
-    <div class="footer">
-        البيانات السوقية يتم جلبها مباشرة من Binance.
-        هذا النظام للتحليل والمعلومات وليس ضماناً للربح.
+    <div class="metric">
+        <span>Take Profit</span>
+        <b id="tp">--</b>
     </div>
+
+    <div class="metric">
+        <span>Risk</span>
+        <b id="risk">--</b>
+    </div>
+</div>
+
+<!-- INDICATORS -->
+<div class="card">
+    <h2>📐 المؤشرات</h2>
+
+    <div class="metric">
+        <span>RSI</span>
+        <b id="rsi">--</b>
+    </div>
+
+    <div class="metric">
+        <span>EMA 20</span>
+        <b id="ema20">--</b>
+    </div>
+
+    <div class="metric">
+        <span>EMA 50</span>
+        <b id="ema50">--</b>
+    </div>
+
+    <div class="metric">
+        <span>MACD</span>
+        <b id="macd">--</b>
+    </div>
+
+    <div class="metric">
+        <span>Trend</span>
+        <b id="trend">--</b>
+    </div>
+</div>
 
 </div>
 
+<br>
+
+<!-- CHART -->
+<div class="card">
+    <h2>📈 الرسم البياني</h2>
+    <canvas id="chart"></canvas>
+</div>
+
+<br>
+
+<!-- AI -->
+<div class="card">
+    <h2>🧠 تحليل الذكاء الاصطناعي</h2>
+
+    <div id="aiResult" class="status">
+        اضغط «تحليل AI + الأخبار» للحصول على تحليل يعتمد على بيانات السوق والأخبار الحديثة.
+    </div>
+</div>
+
+<br>
+
+<!-- GOLD -->
+<div class="card">
+    <h2>🥇 الذهب XAU/USD</h2>
+
+    <div id="goldPrice" class="price">جاري البحث...</div>
+
+    <div id="goldAI" class="status">
+        اضغط تحليل AI للحصول على آخر أخبار الذهب والدولار والفيدرالي وتحليل الاتجاه.
+    </div>
+</div>
+
+<br>
+
+<!-- SCANNER -->
+<div class="card">
+    <h2>🔎 ماسح السوق</h2>
+
+    <button onclick="scanMarket()">🚀 فحص العملات</button>
+
+    <div id="scannerStatus" class="status">
+        لم يبدأ الفحص.
+    </div>
+
+    <br>
+
+    <div class="scroller">
+        <table>
+            <thead>
+                <tr>
+                    <th>العملة</th>
+                    <th>السعر</th>
+                    <th>24H</th>
+                    <th>RSI</th>
+                    <th>الاتجاه</th>
+                    <th>الإشارة</th>
+                </tr>
+            </thead>
+
+            <tbody id="scannerBody"></tbody>
+        </table>
+    </div>
+</div>
+
+<br>
+
+<!-- NEWS -->
+<div class="card">
+    <h2>📰 الأخبار والمستجدات</h2>
+
+    <div id="news">
+        سيتم جلب الأخبار أثناء تحليل AI.
+    </div>
+</div>
+
+<br>
+
+<!-- SIMULATOR -->
+<div class="card">
+    <h2>💵 محفظة المحاكاة</h2>
+
+    <div class="metric">
+        <span>الرصيد</span>
+        <b id="balance">50 USDT</b>
+    </div>
+
+    <div class="metric">
+        <span>الحالة</span>
+        <b>محاكاة فقط</b>
+    </div>
+
+    <button class="secondary" onclick="resetSimulation()">
+        إعادة المحاكاة
+    </button>
+</div>
+
+</div>
 
 <script>
 
-const API =
-"https://api.binance.com/api/v3";
+const BINANCE = "https://api.binance.com";
 
+let currentSymbol = "BTCUSDT";
+let currentPrice = 0;
+let candles = [];
+let chart = null;
 
-const coins = [
-    "BTCUSDT",
-    "ETHUSDT",
-    "BNBUSDT",
-    "SOLUSDT",
-    "XRPUSDT",
-    "DOGEUSDT"
-];
+let balance = 50;
 
+/* =========================
+   API KEY
+========================= */
 
-function formatPrice(value){
+function saveKey(){
+    const key = document.getElementById("apiKey").value.trim();
 
-    const number = Number(value);
-
-    if(number >= 1000){
-        return "$" + number.toLocaleString(
-            "en-US",
-            {
-                minimumFractionDigits:2,
-                maximumFractionDigits:2
-            }
-        );
+    if(!key){
+        alert("أدخل مفتاح Gemini أولاً");
+        return;
     }
 
-    if(number >= 1){
-        return "$" + number.toLocaleString(
-            "en-US",
-            {
-                minimumFractionDigits:2,
-                maximumFractionDigits:4
-            }
-        );
-    }
+    localStorage.setItem("AKRAM_GEMINI_KEY", key);
 
-    return "$" + number.toLocaleString(
-        "en-US",
-        {
-            minimumFractionDigits:4,
-            maximumFractionDigits:6
-        }
-    );
+    document.getElementById("apiStatus").innerText =
+        "✅ تم حفظ مفتاح Gemini على هذا الجهاز.";
 }
 
+function loadKey(){
 
-function formatPercent(value){
+    const key = localStorage.getItem("AKRAM_GEMINI_KEY");
 
-    const n = Number(value);
-
-    if(n > 0){
-        return "+" + n.toFixed(2) + "%";
+    if(key){
+        document.getElementById("apiKey").value = key;
+        document.getElementById("apiStatus").innerText =
+            "✅ مفتاح Gemini محفوظ.";
     }
-
-    return n.toFixed(2) + "%";
 }
 
+/* =========================
+   FORMAT
+========================= */
 
-function setChange(element,value){
+function money(n){
 
-    const n = Number(value);
+    if(n === null || n === undefined || isNaN(n))
+        return "--";
 
-    element.innerText =
-        formatPercent(n);
+    if(n >= 1000)
+        return Number(n).toLocaleString("en-US",{maximumFractionDigits:2});
 
-    element.className =
-        n > 0
-        ? "market-change green"
-        : n < 0
-        ? "market-change red"
-        : "market-change gray";
+    if(n >= 1)
+        return Number(n).toLocaleString("en-US",{maximumFractionDigits:4});
+
+    return Number(n).toLocaleString("en-US",{maximumFractionDigits:8});
 }
 
+function percent(n){
 
-async function get24h(symbol){
+    return (Number(n)>=0?"+":"")+
+        Number(n).toFixed(2)+"%";
+}
 
-    const response =
-        await fetch(
-            API +
-            "/ticker/24hr?symbol=" +
-            symbol
-        );
+/* =========================
+   BINANCE
+========================= */
 
-    if(!response.ok){
-        throw new Error(
-            "HTTP " + response.status
-        );
-    }
+async function binance(path){
+
+    const response = await fetch(BINANCE + path);
+
+    if(!response.ok)
+        throw new Error("Binance API error");
 
     return await response.json();
 }
 
+/* =========================
+   LOAD ALL USDT SYMBOLS
+========================= */
 
-async function loadMarket(){
-
-    const connection =
-        document.getElementById(
-            "connection"
-        );
-
-    connection.innerText =
-        "● جاري تحديث السوق...";
-
-    connection.style.color =
-        "#f0b429";
-
+async function loadSymbols(){
 
     try{
 
-        const results =
-            await Promise.all(
-                coins.map(
-                    symbol =>
-                    get24h(symbol)
-                )
-            );
+        const data = await binance("/api/v3/exchangeInfo");
 
+        const select = document.getElementById("symbolSelect");
 
-        const data = {};
+        select.innerHTML = "";
 
-        results.forEach(item => {
-            data[item.symbol] = item;
+        const symbols = data.symbols
+            .filter(x =>
+                x.status === "TRADING" &&
+                x.quoteAsset === "USDT" &&
+                x.isSpotTradingAllowed !== false
+            )
+            .sort((a,b)=>a.symbol.localeCompare(b.symbol));
+
+        symbols.forEach(x=>{
+
+            const option = document.createElement("option");
+
+            option.value = x.symbol;
+
+            option.textContent =
+                x.baseAsset + " / USDT";
+
+            select.appendChild(option);
         });
 
+        select.value = currentSymbol;
 
-        /* BTC */
+    }catch(e){
 
-        const btc =
-            data["BTCUSDT"];
+        console.error(e);
 
-
-        document.getElementById(
-            "btcPrice"
-        ).innerText =
-            formatPrice(btc.lastPrice);
-
-
-        document.getElementById(
-            "btcChange"
-        ).innerText =
-            formatPercent(
-                btc.priceChangePercent
-            );
-
-
-        document.getElementById(
-            "btcChange"
-        ).className =
-            Number(btc.priceChangePercent) >= 0
-            ? "change green"
-            : "change red";
-
-
-        document.getElementById(
-            "btcMiniPrice"
-        ).innerText =
-            formatPrice(btc.lastPrice);
-
-
-        setChange(
-            document.getElementById(
-                "btcMiniChange"
-            ),
-            btc.priceChangePercent
-        );
-
-
-        document.getElementById(
-            "btcHigh"
-        ).innerText =
-            formatPrice(btc.highPrice);
-
-
-        document.getElementById(
-            "btcLow"
-        ).innerText =
-            formatPrice(btc.lowPrice);
-
-
-        document.getElementById(
-            "btcVolume"
-        ).innerText =
-            Number(
-                btc.volume
-            ).toLocaleString(
-                "en-US",
-                {
-                    maximumFractionDigits:2
-                }
-            );
-
-
-        document.getElementById(
-            "btcPercent"
-        ).innerText =
-            formatPercent(
-                btc.priceChangePercent
-            );
-
-
-        /* ETH */
-
-        document.getElementById(
-            "ethPrice"
-        ).innerText =
-            formatPrice(
-                data["ETHUSDT"].lastPrice
-            );
-
-        setChange(
-            document.getElementById(
-                "ethChange"
-            ),
-            data["ETHUSDT"].priceChangePercent
-        );
-
-
-        /* BNB */
-
-        document.getElementById(
-            "bnbPrice"
-        ).innerText =
-            formatPrice(
-                data["BNBUSDT"].lastPrice
-            );
-
-        setChange(
-            document.getElementById(
-                "bnbChange"
-            ),
-            data["BNBUSDT"].priceChangePercent
-        );
-
-
-        /* SOL */
-
-        document.getElementById(
-            "solPrice"
-        ).innerText =
-            formatPrice(
-                data["SOLUSDT"].lastPrice
-            );
-
-        setChange(
-            document.getElementById(
-                "solChange"
-            ),
-            data["SOLUSDT"].priceChangePercent
-        );
-
-
-        /* XRP */
-
-        document.getElementById(
-            "xrpPrice"
-        ).innerText =
-            formatPrice(
-                data["XRPUSDT"].lastPrice
-            );
-
-        setChange(
-            document.getElementById(
-                "xrpChange"
-            ),
-            data["XRPUSDT"].priceChangePercent
-        );
-
-
-        /* DOGE */
-
-        document.getElementById(
-            "dogePrice"
-        ).innerText =
-            formatPrice(
-                data["DOGEUSDT"].lastPrice
-            );
-
-        setChange(
-            document.getElementById(
-                "dogeChange"
-            ),
-            data["DOGEUSDT"].priceChangePercent
-        );
-
-
-        /* الوقت */
-
-        const now =
-            new Date();
-
-        document.getElementById(
-            "lastUpdate"
-        ).innerText =
-            "آخر تحديث: " +
-            now.toLocaleTimeString(
-                "ar-DZ"
-            );
-
-
-        connection.innerText =
-            "● متصل بالسوق";
-
-        connection.style.color =
-            "#29d17d";
-
-
-        analyzeBTC(btc);
-
-
-    }catch(error){
-
-        console.error(error);
-
-        connection.innerText =
-            "● تعذر الاتصال بالسوق";
-
-        connection.style.color =
-            "#ff6262";
-
-
-        document.getElementById(
-            "analysis"
-        ).innerText =
-            "تعذر جلب بيانات السوق. تحقق من اتصال الإنترنت ثم أعد المحاولة.";
-
-
-        document.getElementById(
-            "signal"
-        ).innerText =
-            "غير متاح";
-
-        document.getElementById(
-            "signal"
-        ).className =
-            "signal-value signal-wait";
+        document.getElementById("symbolSelect").innerHTML =
+            `<option value="BTCUSDT">BTC / USDT</option>`;
     }
 }
 
+/* =========================
+   PRICE
+========================= */
 
-function analyzeBTC(btc){
+async function loadTicker(){
 
-    const change =
-        Number(
-            btc.priceChangePercent
-        );
+    const data = await binance(
+        "/api/v3/ticker/24hr?symbol="+currentSymbol
+    );
 
-    const high =
-        Number(
-            btc.highPrice
-        );
+    currentPrice = Number(data.lastPrice);
 
-    const low =
-        Number(
-            btc.lowPrice
-        );
+    document.getElementById("price").innerText =
+        money(currentPrice)+" USDT";
+
+    document.getElementById("change").innerText =
+        percent(data.priceChangePercent);
+
+    document.getElementById("change").className =
+        "change "+(Number(data.priceChangePercent)>=0?"up":"down");
+
+    document.getElementById("high").innerText =
+        money(data.highPrice);
+
+    document.getElementById("low").innerText =
+        money(data.lowPrice);
+
+    document.getElementById("volume").innerText =
+        Number(data.quoteVolume).toLocaleString(
+            "en-US",
+            {maximumFractionDigits:0}
+        )+" USDT";
+}
+
+/* =========================
+   KLINES
+========================= */
+
+async function loadCandles(){
+
+    const data = await binance(
+        "/api/v3/klines?symbol="+
+        currentSymbol+
+        "&interval=1h&limit=200"
+    );
+
+    candles = data.map(x=>({
+        time:x[0],
+        open:Number(x[1]),
+        high:Number(x[2]),
+        low:Number(x[3]),
+        close:Number(x[4]),
+        volume:Number(x[5])
+    }));
+
+    calculateIndicators();
+    drawChart();
+}
+
+/* =========================
+   EMA
+========================= */
+
+function EMA(values, period){
+
+    const result = [];
+
+    const multiplier =
+        2/(period+1);
+
+    let ema =
+        values
+        .slice(0,period)
+        .reduce((a,b)=>a+b,0)/period;
+
+    for(let i=0;i<period-1;i++)
+        result.push(null);
+
+    result.push(ema);
+
+    for(let i=period;i<values.length;i++){
+
+        ema =
+            (values[i]-ema)*
+            multiplier+ema;
+
+        result.push(ema);
+    }
+
+    return result;
+}
+
+/* =========================
+   RSI
+========================= */
+
+function RSI(values, period=14){
+
+    const result =
+        new Array(values.length).fill(null);
+
+    let gains = 0;
+    let losses = 0;
+
+    for(let i=1;i<=period;i++){
+
+        const diff =
+            values[i]-values[i-1];
+
+        if(diff>=0)
+            gains += diff;
+        else
+            losses -= diff;
+    }
+
+    let avgGain = gains/period;
+    let avgLoss = losses/period;
+
+    result[period] =
+        avgLoss===0 ? 100 :
+        100-(100/(1+(avgGain/avgLoss)));
+
+    for(let i=period+1;i<values.length;i++){
+
+        const diff =
+            values[i]-values[i-1];
+
+        const gain =
+            diff>0?diff:0;
+
+        const loss =
+            diff<0?-diff:0;
+
+        avgGain =
+            ((avgGain*(period-1))+gain)/period;
+
+        avgLoss =
+            ((avgLoss*(period-1))+loss)/period;
+
+        result[i] =
+            avgLoss===0 ?
+            100 :
+            100-(100/(1+(avgGain/avgLoss)));
+    }
+
+    return result;
+}
+
+/* =========================
+   MACD
+========================= */
+
+function MACD(values){
+
+    const ema12 = EMA(values,12);
+    const ema26 = EMA(values,26);
+
+    const macd = values.map((_,i)=>{
+
+        if(ema12[i]===null || ema26[i]===null)
+            return null;
+
+        return ema12[i]-ema26[i];
+
+    });
+
+    return macd;
+}
+
+/* =========================
+   INDICATORS
+========================= */
+
+function calculateIndicators(){
+
+    const closes =
+        candles.map(x=>x.close);
+
+    const ema20 =
+        EMA(closes,20);
+
+    const ema50 =
+        EMA(closes,50);
+
+    const rsi =
+        RSI(closes,14);
+
+    const macd =
+        MACD(closes);
 
     const last =
-        Number(
-            btc.lastPrice
-        );
+        closes.length-1;
 
+    const price =
+        closes[last];
 
-    let signal =
-        document.getElementById(
-            "signal"
-        );
+    const r =
+        rsi[last];
 
-    let text =
-        document.getElementById(
-            "signalText"
-        );
+    const e20 =
+        ema20[last];
 
-    let analysis =
-        document.getElementById(
-            "analysis"
-        );
+    const e50 =
+        ema50[last];
 
+    const m =
+        macd[last];
 
-    /*
-      هذا تحليل وصفي بسيط
-      وليس نموذج ذكاء اصطناعي حقيقياً.
-    */
+    document.getElementById("rsi").innerText =
+        r?.toFixed(2) ?? "--";
 
-    if(change >= 3){
+    document.getElementById("ema20").innerText =
+        money(e20);
 
-        signal.innerText =
-            "اتجاه صاعد قوي";
+    document.getElementById("ema50").innerText =
+        money(e50);
 
-        signal.className =
-            "signal-value signal-positive";
+    document.getElementById("macd").innerText =
+        m?.toFixed(5) ?? "--";
 
-        text.innerText =
-            "ارتفاع واضح خلال آخر 24 ساعة";
+    let trend = "محايد";
 
-        analysis.innerText =
-            "BTC يتحرك حالياً بإيجابية مقارنة بسعر بداية فترة الـ24 ساعة. " +
-            "التغير المسجل هو " +
-            formatPercent(change) +
-            ". هذا لا يعني أن السعر سيواصل الصعود، لذلك يجب انتظار تأكيد من بيانات زمنية أقصر قبل اتخاذ أي قرار.";
+    if(price > e20 && e20 > e50)
+        trend = "صاعد 🟢";
 
-    }else if(change > 0){
+    else if(price < e20 && e20 < e50)
+        trend = "هابط 🔴";
 
-        signal.innerText =
-            "ميل صاعد";
+    document.getElementById("trend").innerText =
+        trend;
 
-        signal.className =
-            "signal-value signal-positive";
+    let signal = "WAIT";
 
-        text.innerText =
-            "السعر أعلى من بداية فترة 24 ساعة";
-
-        analysis.innerText =
-            "BTC يسجل تغيراً إيجابياً قدره " +
-            formatPercent(change) +
-            " خلال 24 ساعة. الحركة إيجابية حالياً، لكنها ليست كافية وحدها لاعتبارها إشارة دخول.";
-
-    }else if(change <= -3){
-
-        signal.innerText =
-            "ضغط هابط";
-
-        signal.className =
-            "signal-value signal-negative";
-
-        text.innerText =
-            "انخفاض واضح خلال آخر 24 ساعة";
-
-        analysis.innerText =
-            "BTC يسجل ضغطاً هابطاً خلال فترة 24 ساعة، مع تغير قدره " +
-            formatPercent(change) +
-            ". يجب مراقبة استمرار الانخفاض أو ظهور انعكاس قبل اتخاذ أي قرار.";
-
-    }else if(change < 0){
-
-        signal.innerText =
-            "ميل هابط";
-
-        signal.className =
-            "signal-value signal-negative";
-
-        text.innerText =
-            "السعر أقل من بداية فترة 24 ساعة";
-
-        analysis.innerText =
-            "BTC يسجل تغيراً سلبياً قدره " +
-            formatPercent(change) +
-            " خلال 24 ساعة. الاتجاه قصير الأجل يميل للسلبية، لكن البيانات الحالية وحدها لا تؤكد استمرار الهبوط.";
-
-    }else{
-
-        signal.innerText =
-            "انتظار";
-
-        signal.className =
-            "signal-value signal-wait";
-
-        text.innerText =
-            "السوق شبه ثابت";
-
-        analysis.innerText =
-            "BTC لا يسجل تغيراً واضحاً خلال فترة 24 ساعة. الأفضل انتظار حركة أوضح قبل اعتبار الاتجاه مؤكداً.";
+    if(
+        price > e20 &&
+        e20 > e50 &&
+        r > 50 &&
+        r < 70 &&
+        m > 0
+    ){
+        signal = "BUY";
     }
 
+    if(
+        price < e20 &&
+        e20 < e50 &&
+        r < 50 &&
+        r > 30 &&
+        m < 0
+    ){
+        signal = "SELL";
+    }
 
-    /*
-      عرض موقع السعر داخل نطاق 24 ساعة
-    */
+    setSignal(signal,price);
 
-    const range =
-        high - low;
+}
 
-    if(range > 0){
+/* =========================
+   SIGNAL
+========================= */
 
-        const position =
-            ((last - low) / range) * 100;
+function setSignal(signal,price){
 
-        analysis.innerText +=
-            " السعر الحالي يقع تقريباً عند " +
-            position.toFixed(1) +
-            "% من نطاق أعلى/أدنى سعر خلال 24 ساعة.";
+    const el =
+        document.getElementById("signal");
+
+    el.className = "signal";
+
+    if(signal==="BUY"){
+
+        el.classList.add("buy");
+        el.innerText="BUY";
+
+        document.getElementById("entry").innerText =
+            money(price);
+
+        document.getElementById("sl").innerText =
+            money(price*0.985);
+
+        document.getElementById("tp").innerText =
+            money(price*1.03);
+
+        document.getElementById("risk").innerText =
+            "1.5%";
+
+    }
+
+    else if(signal==="SELL"){
+
+        el.classList.add("sell");
+        el.innerText="SELL";
+
+        document.getElementById("entry").innerText =
+            money(price);
+
+        document.getElementById("sl").innerText =
+            money(price*1.015);
+
+        document.getElementById("tp").innerText =
+            money(price*0.97);
+
+        document.getElementById("risk").innerText =
+            "1.5%";
+
+    }
+
+    else{
+
+        el.classList.add("wait");
+        el.innerText="WAIT";
+
+        document.getElementById("entry").innerText="--";
+        document.getElementById("sl").innerText="--";
+        document.getElementById("tp").innerText="--";
+        document.getElementById("risk").innerText="--";
     }
 }
 
+/* =========================
+   CHART
+========================= */
 
-/*
-  تشغيل أول مرة
-*/
+function drawChart(){
 
-loadMarket();
+    const ctx =
+        document.getElementById("chart");
 
+    if(chart)
+        chart.destroy();
 
-/*
-  تحديث تلقائي كل 15 ثانية
-*/
+    chart = new Chart(ctx,{
+        type:"line",
 
-setInterval(
-    loadMarket,
-    15000
-);
+        data:{
+            labels:candles.map(x=>
+                new Date(x.time)
+                .toLocaleTimeString("ar-DZ",{
+                    hour:"2-digit",
+                    minute:"2-digit"
+                })
+            ),
+
+            datasets:[{
+                label:currentSymbol,
+                data:candles.map(x=>x.close),
+                borderWidth:2,
+                pointRadius:0,
+                tension:.2
+            }]
+        },
+
+        options:{
+            responsive:true,
+            plugins:{
+                legend:{
+                    labels:{color:"#fff"}
+                }
+            },
+            scales:{
+                x:{
+                    ticks:{color:"#8290a4"}
+                },
+                y:{
+                    ticks:{color:"#8290a4"}
+                }
+            }
+        }
+    });
+}
+
+/* =========================
+   SELECT
+========================= */
+
+function selectSymbol(){
+
+    currentSymbol =
+        document.getElementById("symbolSelect").value;
+
+    loadMarket();
+}
+
+/* =========================
+   MARKET
+========================= */
+
+async function loadMarket(){
+
+    try{
+
+        document.body.classList.add("loading");
+
+        await loadTicker();
+        await loadCandles();
+
+    }catch(e){
+
+        console.error(e);
+
+        document.getElementById("price").innerText =
+            "خطأ في البيانات";
+
+    }finally{
+
+        document.body.classList.remove("loading");
+    }
+}
+
+/* =========================
+   GEMINI
+========================= */
+
+async function gemini(prompt){
+
+    const key =
+        localStorage.getItem("AKRAM_GEMINI_KEY");
+
+    if(!key)
+        throw new Error("NO_API_KEY");
+
+    const url =
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent";
+
+    const response =
+        await fetch(url,{
+            method:"POST",
+
+            headers:{
+                "Content-Type":"application/json",
+                "x-goog-api-key":key
+            },
+
+            body:JSON.stringify({
+
+                contents:[
+                    {
+                        role:"user",
+                        parts:[
+                            {text:prompt}
+                        ]
+                    }
+                ],
+
+                tools:[
+                    {
+                        google_search:{}
+                    }
+                ],
+
+                generationConfig:{
+                    temperature:.15,
+                    maxOutputTokens:2500
+                }
+
+            })
+        });
+
+    const data =
+        await response.json();
+
+    if(!response.ok){
+
+        console.error(data);
+
+        throw new Error(
+            data?.error?.message ||
+            "Gemini API error"
+        );
+    }
+
+    return data;
+}
+
+/* =========================
+   EXTRACT GEMINI TEXT
+========================= */
+
+function getGeminiText(data){
+
+    return data
+        ?.candidates?.[0]
+        ?.content
+        ?.parts
+        ?.map(x=>x.text||"")
+        .join("") || "";
+}
+
+/* =========================
+   AI ANALYSIS
+========================= */
+
+async function runAIAnalysis(){
+
+    const box =
+        document.getElementById("aiResult");
+
+    const newsBox =
+        document.getElementById("news");
+
+    box.innerHTML =
+        "🧠 جاري البحث في الويب وتحليل السوق...";
+
+    try{
+
+        const closes =
+            candles.map(x=>x.close);
+
+        const rsi =
+            RSI(closes,14).at(-1);
+
+        const e20 =
+            EMA(closes,20).at(-1);
+
+        const e50 =
+            EMA(closes,50).at(-1);
+
+        const macd =
+            MACD(closes).at(-1);
+
+        const prompt = `
+
+أنت محلل أسواق مالي تعليمي.
+
+حلل الأصل التالي:
+
+${currentSymbol}
+
+السعر الحالي:
+${currentPrice}
+
+RSI:
+${rsi}
+
+EMA20:
+${e20}
+
+EMA50:
+${e50}
+
+MACD:
+${macd}
+
+ابحث عبر Google Search عن آخر الأخبار والمستجدات المؤثرة على هذا الأصل خلال آخر 72 ساعة.
+
+ابحث أيضًا عن:
+- أخبار السوق
+- أخبار Bitcoin إذا كان الأصل عملة رقمية
+- أخبار الاقتصاد الكلي
+- قرارات البنوك المركزية
+- الدولار
+- التضخم
+- الفائدة
+- أخبار المشروع نفسه
+- أحداث قد تسبب تقلبًا قويًا
+
+إذا كان الأصل مرتبطًا بالذهب فابحث عن:
+- الذهب
+- الدولار
+- Federal Reserve
+- أسعار الفائدة
+- التضخم
+- التوترات الجيوسياسية
+
+بعد ذلك أعطني تحليلًا تعليميًا واضحًا.
+
+ممنوع الادعاء أن الصفقة مضمونة.
+
+أريد النتيجة بهذا الشكل:
+
+SIGNAL: BUY أو SELL أو WAIT
+
+CONFIDENCE: رقم من 0 إلى 100
+
+DIRECTION:
+صاعد أو هابط أو محايد
+
+REASON:
+أسباب الإشارة
+
+NEWS:
+أهم الأخبار الحالية
+
+RISKS:
+أهم المخاطر
+
+ENTRY:
+السعر المقترح للمراقبة
+
+STOP:
+مستوى وقف الخسارة المقترح
+
+TARGET:
+الهدف المقترح
+
+HORIZON:
+قصير جدًا / قصير / متوسط
+
+ثم قائمة مختصرة بالمصادر التي استخدمتها.
+`;
+
+        const data =
+            await gemini(prompt);
+
+        const text =
+            getGeminiText(data);
+
+        if(!text)
+            throw new Error("لم يرجع Gemini نتيجة");
+
+        box.innerHTML =
+            formatAI(text);
+
+        extractNews(text);
+
+    }catch(e){
+
+        console.error(e);
+
+        if(e.message==="NO_API_KEY"){
+
+            box.innerHTML =
+                "⚠️ أضف Gemini API Key أولًا من قسم الإعدادات.";
+
+        }else{
+
+            box.innerHTML =
+                "❌ خطأ: "+e.message;
+        }
+    }
+}
+
+/* =========================
+   FORMAT AI
+========================= */
+
+function formatAI(text){
+
+    return text
+        .replace(/SIGNAL:/gi,"<b>🎯 SIGNAL:</b>")
+        .replace(/CONFIDENCE:/gi,"<br><b>📊 CONFIDENCE:</b>")
+        .replace(/DIRECTION:/gi,"<br><b>📈 DIRECTION:</b>")
+        .replace(/REASON:/gi,"<br><b>🧠 REASON:</b>")
+        .replace(/NEWS:/gi,"<br><b>📰 NEWS:</b>")
+        .replace(/RISKS:/gi,"<br><b>⚠️ RISKS:</b>")
+        .replace(/ENTRY:/gi,"<br><b>🟢 ENTRY:</b>")
+        .replace(/STOP:/gi,"<br><b>🔴 STOP:</b>")
+        .replace(/TARGET:/gi,"<br><b>🎯 TARGET:</b>")
+        .replace(/HORIZON:/gi,"<br><b>⏱ HORIZON:</b>")
+        .replace(/\n/g,"<br>");
+}
+
+/* =========================
+   NEWS
+========================= */
+
+function extractNews(text){
+
+    const index =
+        text.toUpperCase().indexOf("NEWS:");
+
+    if(index===-1)
+        return;
+
+    let newsText =
+        text.substring(index+5);
+
+    const riskIndex =
+        newsText.toUpperCase().indexOf("RISKS:");
+
+    if(riskIndex!==-1)
+        newsText =
+            newsText.substring(0,riskIndex);
+
+    document.getElementById("news").innerHTML =
+        `<div class="news">${newsText
+            .replace(/\n/g,"<br>")}</div>`;
+}
+
+/* =========================
+   GOLD
+========================= */
+
+async function analyzeGold(){
+
+    const box =
+        document.getElementById("goldAI");
+
+    box.innerHTML =
+        "🥇 جاري البحث عن الذهب والدولار والفيدرالي...";
+
+    try{
+
+        const prompt = `
+
+ابحث عبر Google Search عن الوضع الحالي للذهب XAU/USD.
+
+استخدم أحدث المعلومات المتاحة.
+
+أريد:
+1. السعر الحالي التقريبي للذهب.
+2. اتجاه الذهب.
+3. قوة الدولار.
+4. آخر أخبار Federal Reserve.
+5. آخر أخبار التضخم والفائدة.
+6. أهم الأخبار الجيوسياسية المؤثرة.
+7. أهم مستويات الدعم والمقاومة إن أمكن.
+8. تحليل قصير الأجل تعليمي.
+9. هل الإشارة الحالية BUY أو SELL أو WAIT؟
+10. درجة الثقة من 0 إلى 100.
+
+لا تقل إن الصفقة مضمونة.
+اذكر المصادر المستخدمة.
+`;
+
+        const data =
+            await gemini(prompt);
+
+        const text =
+            getGeminiText(data);
+
+        box.innerHTML =
+            formatAI(text);
+
+        const match =
+            text.match(
+                /(?:السعر الحالي|current price)[^0-9]*([\d,.]+)/i
+            );
+
+        if(match)
+            document.getElementById("goldPrice").innerText =
+                match[1]+" USD";
+
+    }catch(e){
+
+        document.getElementById("goldAI").innerHTML =
+            "⚠️ "+e.message;
+    }
+}
+
+/* =========================
+   MARKET SCANNER
+========================= */
+
+async function scanMarket(){
+
+    const status =
+        document.getElementById("scannerStatus");
+
+    const body =
+        document.getElementById("scannerBody");
+
+    status.innerText =
+        "🔎 جاري جلب العملات وفحص السوق...";
+
+    body.innerHTML="";
+
+    try{
+
+        const tickers =
+            await binance("/api/v3/ticker/24hr");
+
+        const usdt =
+            tickers
+            .filter(x =>
+                x.symbol.endsWith("USDT") &&
+                Number(x.quoteVolume)>1000000
+            )
+            .sort(
+                (a,b)=>
+                Number(b.quoteVolume)-
+                Number(a.quoteVolume)
+            )
+            .slice(0,80);
+
+        let results=[];
+
+        for(let i=0;i<usdt.length;i++){
+
+            const t=usdt[i];
+
+            try{
+
+                const k =
+                    await binance(
+                        "/api/v3/klines?symbol="+
+                        t.symbol+
+                        "&interval=1h&limit=80"
+                    );
+
+                const closes =
+                    k.map(x=>Number(x[4]));
+
+                const r =
+                    RSI(closes,14).at(-1);
+
+                const e20 =
+                    EMA(closes,20).at(-1);
+
+                const e50 =
+                    EMA(closes,50).at(-1);
+
+                const price =
+                    closes.at(-1);
+
+                let trend="محايد";
+                let signal="WAIT";
+
+                if(price>e20 && e20>e50){
+
+                    trend="صاعد";
+
+                    if(r>50 && r<70)
+                        signal="BUY";
+                }
+
+                if(price<e20 && e20<e50){
+
+                    trend="هابط";
+
+                    if(r<50 && r>30)
+                        signal="SELL";
+                }
+
+                results.push({
+                    symbol:t.symbol,
+                    price,
+                    change:Number(t.priceChangePercent),
+                    rsi:r,
+                    trend,
+                    signal
+                });
+
+            }catch(e){}
+
+        }
+
+        results.sort((a,b)=>{
+
+            const order={
+                BUY:0,
+                SELL:1,
+                WAIT:2
+            };
+
+            return order[a.signal]-order[b.signal];
+        });
+
+        results.forEach(x=>{
+
+            const tr =
+                document.createElement("tr");
+
+            tr.innerHTML=`
+
+<td>${x.symbol.replace("USDT","")}</td>
+
+<td>${money(x.price)}</td>
+
+<td class="${x.change>=0?'up':'down'}">
+${percent(x.change)}
+</td>
+
+<td>${x.rsi?.toFixed(1)??"--"}</td>
+
+<td>${x.trend}</td>
+
+<td class="${
+    x.signal==="BUY"?
+    "up":
+    x.signal==="SELL"?
+    "down":
+    "neutral"
+}">
+${x.signal}
+</td>
+`;
+
+            body.appendChild(tr);
+        });
+
+        status.innerText =
+            `✅ تم فحص ${results.length} عملة من أعلى العملات نشاطًا.`;
+
+    }catch(e){
+
+        status.innerText =
+            "❌ فشل فحص السوق: "+e.message;
+    }
+}
+
+/* =========================
+   SIMULATION
+========================= */
+
+function resetSimulation(){
+
+    balance=50;
+
+    document.getElementById("balance").innerText =
+        balance+" USDT";
+}
+
+/* =========================
+   INIT
+========================= */
+
+async function init(){
+
+    loadKey();
+
+    await loadSymbols();
+
+    await loadMarket();
+
+    const key =
+        localStorage.getItem("AKRAM_GEMINI_KEY");
+
+    if(key){
+
+        setTimeout(()=>{
+            analyzeGold();
+        },1000);
+
+    }
+}
+
+init();
+
+/* =========================
+   AUTO UPDATE
+========================= */
+
+setInterval(async()=>{
+
+    try{
+
+        await loadTicker();
+
+    }catch(e){}
+
+},30000);
 
 </script>
 
